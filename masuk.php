@@ -89,22 +89,22 @@ require 'cek.php';
                                         <tbody>
                                             <?php
                                             
-                                            $ambilsemuadatastock = mysqli_query($conn,"select * from masuk m, stock s where s.idbarang = m.idbarang");
+                                            $ambilsemuadatastock = mysqli_query($conn,"select * from masuk, stock where stock.idbarang = masuk.idmasuk_barang");
 
                                             if(isset($_POST['filtertgl'])){
                                                 $awal = $_POST['tglawal'];
                                                 $akhir = $_POST['tglakhir'];
                                             
                                                 if($awal!=null || $akhir!=null){
-                                                    $ambilsemuadatastock = mysqli_query($conn,"select * from masuk m, stock s where s.idbarang = m.idbarang and tanggal BETWEEN '$awal' and DATE_ADD('$akhir', INTERVAL 1 DAY)");
+                                                    $ambilsemuadatastock = mysqli_query($conn,"select * from masuk, stock where stock.idbarang = masuk.idmasuk_barang and tanggal BETWEEN '$awal' and DATE_ADD('$akhir', INTERVAL 1 DAY)");
                                                 } else {
-                                                    $ambilsemuadatastock = mysqli_query($conn,"select * from masuk m, stock s where s.idbarang = m.idbarang");
+                                                    $ambilsemuadatastock = mysqli_query($conn,"select * from masuk, stock where stock.idbarang = masuk.idmasuk_barang");
                                                 }
                                             }
 
                                             while($data=mysqli_fetch_array($ambilsemuadatastock)){
                                                 $idb = $data['idbarang'];
-                                                $idm = $data['idmasuk'];
+                                                $idm = $data['idmasuk_barang'];
                                                 $tanggal = $data['tanggal'];
                                                 $namabarang = $data['namabarang'];
                                                 $qty = $data['qty'];

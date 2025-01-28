@@ -48,16 +48,16 @@ require 'cek.php';
                                         
                                         <tbody>
                                         <?php
-                                            $ambilsemuadatastock = mysqli_query($conn,"select * from keluar k, stock s where s.idbarang = k.idbarang");
+                                            $ambilsemuadatastock = mysqli_query($conn,"select * from keluar, stock where stock.idbarang = keluar.idkeluar_barang");
 
                                             if(isset($_POST['filtertgl'])){
                                                 $awal = $_POST['tglawal'];
                                                 $akhir = $_POST['tglakhir'];
                                             
                                                 if($awal!=null || $akhir!=null){
-                                                    $ambilsemuadatastock = mysqli_query($conn,"select * from keluar k, stock s where s.idbarang = k.idbarang and tanggal BETWEEN '$awal' and DATE_ADD('$akhir', INTERVAL 1 DAY)");
+                                                    $ambilsemuadatastock = mysqli_query($conn,"select * from keluar, stock where stock.idbarang = keluar.idkeluar_barang and tanggal BETWEEN '$awal' and DATE_ADD('$akhir', INTERVAL 1 DAY)");
                                                 } else {
-                                                    $ambilsemuadatastock = mysqli_query($conn,"select * from keluar k, stock s where s.idbarang = k.idbarang");
+                                                    $ambilsemuadatastock = mysqli_query($conn,"select * from keluar, stock where stock.idbarang = keluar.idkeluar_barang");
                                                 }
                                             }
                                             $jmlhbarangkeluar = 0;
